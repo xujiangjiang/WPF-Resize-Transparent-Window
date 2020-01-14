@@ -5,7 +5,9 @@
 作者：絮大王
 ```
 
-**通过这篇文章，我们可以实现：**
+<br/>
+
+**通过这篇文章，我们可以实现**：
 
 1. 让WPF的透明窗口可以通过拖拽窗口的边缘，自由的调整尺寸。
 
@@ -103,7 +105,7 @@
 
 
 
-**第1步：**我们创建1个新的WPF工程。
+**第1步**：我们创建1个新的WPF工程。
 
 ![](Image/01.png)
 
@@ -115,7 +117,7 @@
 
 
 
-**第2步：**设置窗口的背景为透明色。
+**第2步**：设置窗口的背景为透明色。
 
 ![](Image/03.png)
 
@@ -123,7 +125,7 @@
 
 
 
-**第3步：**但是，我们可以看到，现在窗口的背景是黑色的，并没有变透明，为什么呢？
+**第3步**：但是，我们可以看到，现在窗口的背景是黑色的，并没有变透明，为什么呢？
 
 ​			  因为，我们没有允许窗口可以是透明的。
 
@@ -143,7 +145,7 @@
 
 
 
-**第4步：**我们往窗口里加入一点东西（不然我们什么都看不见啦）。
+**第4步**：我们往窗口里加入一点东西（不然我们什么都看不见啦）。
 
 ​			  这里我们在窗口中加入一个白色的背景，并给背景一个圆角，并且让背景有个好看的阴影。
 
@@ -159,7 +161,7 @@
 
 
 
-**第5步：**我们在窗口中，再放入一个按钮。
+**第5步**：我们在窗口中，再放入一个按钮。
 
 ​			 透明窗口就创建好啦！
 
@@ -169,7 +171,7 @@
 
 
 
-**代码 (MainWindow.xaml)：**
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -234,19 +236,19 @@ https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?vi
 
 
 
-**第1步：**在Window控件中，创建1个WindowChrome。
+**第1步**：在Window控件中，创建1个WindowChrome。
 
 ![](Image/12.png)
 
 
 
-**第2步：**此时，我们可以看到，我们把鼠标移动到窗口边缘拖动后，就已经可以改变窗口的大小啦！
+**第2步**：此时，我们可以看到，我们把鼠标移动到窗口边缘拖动后，就已经可以改变窗口的大小啦！
 
 ![](Image/13.gif)
 
 
 
-**第3步：**为了更加完美，我们还可以设置下WindowChrome的`CaptionHeight属性`和`ResizeBorderThickness属性`。
+**第3步**：为了更加完美，我们还可以设置下WindowChrome的`CaptionHeight属性`和`ResizeBorderThickness属性`。
 
 		CaptionHeight属性：设置标题栏的高度。
 	    ResizeBorderThickness属性：设置拖拽调整窗口区域的宽度（如果你的窗口有阴影的话，可以把这个值调整的更大一点）
@@ -256,7 +258,7 @@ https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?vi
 
 
 
-**代码 (MainWindow.xaml)：**
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -323,7 +325,7 @@ https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?vi
 
 
 
-**第1步：**我们创建1个Border，命名为TopBorder。
+**第1步**：我们创建1个Border，命名为TopBorder。
 
 ​			  我们希望当我们按住这个Border的时候，就可以拖动窗口。
 
@@ -333,7 +335,7 @@ https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?vi
 
 
 
-**第2步：**注册TopBorder的MouseLeftButtonDown事件。
+**第2步**：注册TopBorder的MouseLeftButtonDown事件。
 
 ​			  （当我们在TopBorder控件身上按下鼠标左键时，就会触发这个MouseLeftButtonDown事件）
 
@@ -341,7 +343,7 @@ https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?vi
 
 
 
-**第3步：**我们在MainWindow.cs中，这样写。
+**第3步**：我们在MainWindow.cs中，这样写。
 
 ```
 Window类的DragMove()方法，用于当鼠标左键按下后，移动鼠标可以拖动窗口。
@@ -351,7 +353,7 @@ Window类的DragMove()方法，用于当鼠标左键按下后，移动鼠标可�
 
 
 
-**第4步：**现在我们就可以随意的拖动窗口啦！
+**第4步**：现在我们就可以随意的拖动窗口啦！
 
 ![](Image/19.gif)
 
@@ -359,7 +361,7 @@ Window类的DragMove()方法，用于当鼠标左键按下后，移动鼠标可�
 
 
 
-**代码 (MainWindow.xaml)：**
+**代码 (MainWindow.xaml)**：
 
 ```Xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -415,7 +417,7 @@ Window类的DragMove()方法，用于当鼠标左键按下后，移动鼠标可�
 
 
 
-**代码 (MainWindow.cs)：**
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System.Windows;
@@ -476,7 +478,7 @@ namespace ResizeTransparentWindow
 
 
 
-> **思路：**
+> **思路**：
 >
 > 因为拖到屏幕边缘自动最大化，有个必要条件是鼠标按下去，然后拖。
 >
@@ -486,7 +488,7 @@ namespace ResizeTransparentWindow
 
 
 
-**代码 (MainWindow.cs)：**
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System.Windows;
@@ -576,7 +578,7 @@ namespace ResizeTransparentWindow
 
 
 
-> **思路：**
+> **思路**：
 >
 > ```
 > 【首先Hauk给出了自己的思路】：
@@ -598,13 +600,13 @@ namespace ResizeTransparentWindow
 
 
 
-**效果：**
+**效果**：
 
 ![](Image/20.gif)
 
 
 
-**代码 (MainWindow.cs)：**
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System;
@@ -708,19 +710,19 @@ namespace ResizeTransparentWindow
 
 
 
-**第1步：**我们只需要把所有的控件都放进Viewbox控件中。
+**第1步**：我们只需要把所有的控件都放进Viewbox控件中。
 
 ![](Image/21.png)
 
 
 
-**第2步：**然后，设置Viewbox的Stretch属性为UniformToFill
+**第2步**：然后，设置Viewbox的Stretch属性为UniformToFill
 
 ![](Image/22.png)
 
 
 
-**第3步：**现在，我们缩放窗口时，窗口中的内容也会自动等比例进行缩放啦！
+**第3步**：现在，我们缩放窗口时，窗口中的内容也会自动等比例进行缩放啦！
 
 ![](Image/23.gif)
 
@@ -728,7 +730,7 @@ namespace ResizeTransparentWindow
 
 
 
-**代码 (MainWindow.xaml)：**
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -791,7 +793,7 @@ namespace ResizeTransparentWindow
 
 ## 完整代码
 
-**MainWindow.xaml：**
+**MainWindow.xaml**：
 
 ```Xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -854,7 +856,7 @@ namespace ResizeTransparentWindow
 
 
 
-**MainWindow.cs：**
+**MainWindow.cs**：
 
 ```c#
 using System;
