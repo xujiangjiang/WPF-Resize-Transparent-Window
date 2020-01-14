@@ -1,40 +1,35 @@
-# WPF Transparent window can be resized（By dragging the edge of the window）
+# WPF 透明窗口可以调整尺寸（通过拖拽窗口边缘）
 
 ```
-Follows the CC 4.0 BY-SA agreement
-By：絮大王 (Xudawang)
-(Translated by Google)
+本文遵循 CC 4.0 BY-SA 版权协议
+作者：絮大王
 ```
 
 <br/>
 
-[（中文版本请看这里）](README[CN].md)
+**通过这篇文章，我们可以实现**：
 
-<br/>
-
-**With this article we can learn**：
-
-1. Freely adjust the size of WPF transparent window by dragging the edge of the window.
+1. 让WPF的透明窗口可以通过拖拽窗口的边缘，自由的调整尺寸。
 
 ![](Image/00.gif)
 
 <br/>
 
-2. Drag above the transparent window to move the window.
+2. 我们可以通过拖拽窗口的上方，来移动窗口。
 
 ![](Image/19.gif)
 
 <br/>
 
-3. We can prevent the window from maximizing automatically when it is dragged to the edge of the screen.
+3. 我们可以禁止窗口拖到屏幕边缘时自动最大化。
 
-4. Change the size of the window proportionally.
+4. 还可以等比例的改变窗口的大小。
 
 ![](Image/20.gif)
 
 <br/>
 
-5. You can also change the size of controls in the window proportionally
+5. 还可以等比例的改变窗口中控件的大小
 
 ![](Image/23.gif)
 
@@ -46,29 +41,29 @@ By：絮大王 (Xudawang)
 
 <br/>
 
-## Reference
+## 参考文章
 
 > **AllowsTransparency="True" 怎么放大缩小窗体**
 >
-> Author：[不灬赖](https://blog.csdn.net/LJianDong)
+> 作者：[不灬赖](https://blog.csdn.net/LJianDong)
 >
-> Link：https://blog.csdn.net/LJianDong/article/details/99844199
+> 原文地址：https://blog.csdn.net/LJianDong/article/details/99844199
 
 <br/>
 
 > **C# WPF 如何禁止窗口拖到屏幕边缘自动最大化**
 >
-> Author：[Bird鸟人](https://blog.csdn.net/wcc27857285)
+> 作者：[Bird鸟人](https://blog.csdn.net/wcc27857285)
 >
-> Link：https://blog.csdn.net/wcc27857285/article/details/78223901
+> 原文地址：https://blog.csdn.net/wcc27857285/article/details/78223901
 
 <br/>
 
 > **WPF窗口比例如何保持恒定？**
 >
-> Author：[a7066163](https://my.csdn.net/a7066163)、[Hauk](https://my.csdn.net/haukwong)
+> 作者：[a7066163](https://my.csdn.net/a7066163)、[Hauk](https://my.csdn.net/haukwong)
 >
-> Link：https://bbs.csdn.net/topics/390257164
+> 原文地址：https://bbs.csdn.net/topics/390257164
 
 <br/>
 
@@ -78,17 +73,15 @@ By：絮大王 (Xudawang)
 
 <br/>
 
-## Table of Contents
+## 目录
 
-- Create a "transparent window"
-- Resize the "transparent window" by dragging
-- Move "transparent window" by dragging
-- Disable window maximize
-- Change the size of the window proportionally
-- Proportionally change the size of controls in the window
-- Complete code
-
-<br/>
+- 创建1个“透明窗口”
+- 通过拖拽调整“透明窗口”的尺寸
+- 通过拖拽移动“透明窗口”
+- 禁止窗口自动最大化
+- 等比例的改变窗口的大小
+- 等比例的改变窗口中控件的大小
+- 完整代码
 
 <br/>
 
@@ -96,33 +89,35 @@ By：絮大王 (Xudawang)
 
 <br/>
 
-## Create a "transparent window"
+<br/>
 
-"Transparent window" refers to a window whose Window.AllowsTransparency property is true.
+## 创建1个“透明窗口”
 
-But if `Window.AllowsTransparency ="True"`, then `Window.WindowStyle ="None"` must be used.
+“透明窗口”指的是Window.AllowsTransparency属性为true的窗口。
 
-If `Window.WindowStyle ="None"`, we can no longer change the size of the window by dragging the edge of the window; nor can we move the position of the window by dragging above the window.
+但是想要`Window.AllowsTransparency=“True”`，我们需要让`Window.WindowStyle="None"`。
 
-Then what should we do?
+如果`Window.WindowStyle="None"`，我们就不能够再通过拖拽窗口的边缘，改变窗口的尺寸了；也不能通过拖拽窗口的上方，来移动窗口的位置了。
 
-Let's go step by step, first we need to create a transparent window as a demonstration.
+那怎么办呢？
+
+我们一步一步来，首先我们需要创建1个透明窗口，作为演示。
 
 <br/>
 
-**Step 1**: We create a new WPF project.
+**第1步**：我们创建1个新的WPF工程。
 
 ![](Image/01.png)
 
-<br/>
+​	<br/>
 
-​			Now the window looks like this ↓
+​			现在窗口是这样的 ↓
 
 ![](Image/02.png)
 
 <br/>
 
-**Step 2**: Set the background of the window to transparent.
+**第2步**：设置窗口的背景为透明色。
 
 ![](Image/03.png)
 
@@ -130,29 +125,29 @@ Let's go step by step, first we need to create a transparent window as a demonst
 
 <br/>
 
-**Step 3**: However, we can see that the background of the window is now black and has not become transparent. Why?
+**第3步**：但是，我们可以看到，现在窗口的背景是黑色的，并没有变透明，为什么呢？
 
-​			  Because we didn't allow windows to be transparent.
+​			  因为，我们没有允许窗口可以是透明的。
 
-​			  We set `AllowsTransparency ="True"` in the Window control to allow the window to become transparent!
+​			  我们在Window控件中，设置`AllowsTransparency="True"`，就可以允许窗口变透明啦！
 
-​			  But it will report an error when running this way, because if `AllowsTransparency ="True"`, then the WindowStyle property must be None!
+​			  但是这样运行时会报错，因为如果`AllowsTransparency="True"`，那么WindowStyle属性必须为None！
 
-​			  We set `WindowStyle = "None"` in the Window control, so that we get a completely transparent window!
+​			  我们在Window控件中，设置WindowStyle="None"，这样一来，我们就得到了一个完全透明的窗口啦！
 
 ![](Image/05.png)
 
 <br/>
 
-​			  Because the window is completely transparent, we cannot see the window at all! (^ _ ^)
+​			  因为窗口是完全透明的，所以我们完全看不到窗口啦！
 
 ![](Image/06.png)
 
 <br/>
 
-**Step 4**: Let's add something to the window (otherwise we can't see anything).
+**第4步**：我们往窗口里加入一点东西（不然我们什么都看不见啦）。
 
-​			  Here we add a white background to the window, give the background a rounded corner, and give the background a nice shadow.
+​			  这里我们在窗口中加入一个白色的背景，并给背景一个圆角，并且让背景有个好看的阴影。
 
 ![](Image/07.png)
 
@@ -160,15 +155,15 @@ Let's go step by step, first we need to create a transparent window as a demonst
 
 <br/>
 
-​			For easy observation, we put the window in a white area.
+​			为了方便观察，我们把窗口放到一个白色区域中。
 
 ![](Image/09.png)
 
 <br/>
 
-**Step 5**: We put another button in the window.
+**第5步**：我们在窗口中，再放入一个按钮。
 
-​			 The transparent window is OK!
+​			 透明窗口就创建好啦！
 
 ![](Image/10.png)
 
@@ -176,7 +171,7 @@ Let's go step by step, first we need to create a transparent window as a demonst
 
 <br/>
 
-**Code (MainWindow.xaml)**：
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -226,44 +221,44 @@ Let's go step by step, first we need to create a transparent window as a demonst
 
 <br/>
 
-## Resize the "transparent window" by dragging
+## 通过拖拽调整“透明窗口”的尺寸
 
-Now we have no way to resize the transparent window by dragging the edges of the window.
+现在，我们没有办法通过拖拽窗口的边缘，调整透明窗口的尺寸。
 
-How to do it?
+怎么办呢？
 
-Don't worry, we can use the WindowChrome class. This way we can scale the window while the window is transparent!
+别担心，我们可以使用WindowChrome类。这样我们既能让窗口透明，又能实现缩放窗口！
 
 ```
-If you want to learn more about the WindowChrome class, you can check the official Microsoft documentation:
-https://docs.microsoft.com/en-us/dotnet/api/system.windows.shell.windowchrome?view=netframework-4.8
+如果你想了解更多关于WindowChrome类的信息，可以查看微软的官方文档：
+https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?view=netframework-4.8
 ```
 
 <br/>
 
-**Step 1**: In the Window control, create a WindowChrome.
+**第1步**：在Window控件中，创建1个WindowChrome。
 
 ![](Image/12.png)
 
 <br/>
 
-**Step 2**: At this point, we can see that after we move the mouse to the edge of the window and drag, we can already change the size of the window!
+**第2步**：此时，我们可以看到，我们把鼠标移动到窗口边缘拖动后，就已经可以改变窗口的大小啦！
 
 ![](Image/13.gif)
 
 <br/>
 
-**Step 3**: To be more perfect, we can also set the `CaptionHeight property` and` ResizeBorderThickness property` of WindowChrome.
+**第3步**：为了更加完美，我们还可以设置下WindowChrome的`CaptionHeight属性`和`ResizeBorderThickness属性`。
 
-		CaptionHeight property: Set the height of the title bar.
-	    ResizeBorderThickness property: Set the width of the "Resize Window" border (if your window has shadows, you can adjust this value a bit larger)
+		CaptionHeight属性：设置标题栏的高度。
+	    ResizeBorderThickness属性：设置拖拽调整窗口区域的宽度（如果你的窗口有阴影的话，可以把这个值调整的更大一点）
 ![](Image/14.png)
 
 <br/>
 
 <br/>
 
-**Code (MainWindow.xaml)**：
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -318,21 +313,21 @@ https://docs.microsoft.com/en-us/dotnet/api/system.windows.shell.windowchrome?vi
 
 <br/>
 
-## Move "transparent window" by dragging
+## 通过拖拽移动“透明窗口”
 
-Because we set `WindowStyle ="None"` of the Window control, we have no way to move the window by dragging.
+因为我们设置了Window控件的`WindowStyle="None"`，因此我们现在没有办法通过拖拽来移动窗口。
 
-How to do it?
+怎么办呢？
 
-This is especially simple!
+这个特别简单！
 
-We just need to call Window's `DragMove()` method when the mouse is pressed, and that's it!
+我们只需要在按下鼠标的时候，调用Window的`DragMove()`方法，就可以啦！
 
 <br/>
 
-**Step 1**: We create a Border and name it TopBorder.
+**第1步**：我们创建1个Border，命名为TopBorder。
 
-​			  We hope that when we hold this Border, we can drag the window.
+​			  我们希望当我们按住这个Border的时候，就可以拖动窗口。
 
 ![](Image/15.png)
 
@@ -340,25 +335,25 @@ We just need to call Window's `DragMove()` method when the mouse is pressed, and
 
 <br/>
 
-**Step 2**:Register the MouseLeftButtonDown event of TopBorder.
+**第2步**：注册TopBorder的MouseLeftButtonDown事件。
 
-​			  (When we press the left mouse button on the TopBorder control, this MouseLeftButtonDown event will be triggered)
+​			  （当我们在TopBorder控件身上按下鼠标左键时，就会触发这个MouseLeftButtonDown事件）
 
 ![](Image/17.png)
 
 <br/>
 
-**Step 3**: We write in MainWindow.cs ↓
+**第3步**：我们在MainWindow.cs中，这样写。
 
 ```
-The DragMove() method of the Window class is used to move the mouse to drag the window after the left mouse button is pressed.
+Window类的DragMove()方法，用于当鼠标左键按下后，移动鼠标可以拖动窗口。
 ```
 
 ![](Image/18.png)
 
 <br/>
 
-**Step 4**: Now we can drag the window at will!
+**第4步**：现在我们就可以随意的拖动窗口啦！
 
 ![](Image/19.gif)
 
@@ -366,7 +361,7 @@ The DragMove() method of the Window class is used to move the mouse to drag the 
 
 <br/>
 
-**Code (MainWindow.xaml)**：
+**代码 (MainWindow.xaml)**：
 
 ```Xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -422,7 +417,7 @@ The DragMove() method of the Window class is used to move the mouse to drag the 
 
 <br/>
 
-**Code (MainWindow.cs)**：
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System.Windows;
@@ -467,33 +462,33 @@ namespace ResizeTransparentWindow
 
 <br/>
 
-## Disable window maximize
+## 禁止窗口自动最大化
 
-Now when our window is dragged to the top of the screen, it will automatically maximize.
+现在我们的窗口拖拽到屏幕上方时，会自动最大化。
 
-Can we not maximize the window?
+我们可以不最大化窗口吗？
 
-of course can!
+当然可以！
 
-[Bird鸟人](https://blog.csdn.net/wcc27857285) has implemented this function in a very clever way.
+[Bird鸟人](https://blog.csdn.net/wcc27857285)大佬用了一种非常巧妙的方法实现了这个功能。
 
 ```
-Link：https://blog.csdn.net/wcc27857285/article/details/78223901
+原文地址：https://blog.csdn.net/wcc27857285/article/details/78223901
 ```
 
 <br/>
 
-> **Thinking**:
+> **思路**：
 >
-> Because dragging to the edge of the screen automatically maximizes, a necessary condition is that the mouse is pressed down, and then dragged.
+> 因为拖到屏幕边缘自动最大化，有个必要条件是鼠标按下去，然后拖。
 >
-> We can use this time to set the ResizeMode to NoResize, and then set the ResizeMode back to CanResize after releasing the mouse.
+> 我们可以利用这个间隙将ResizeMode设置为NoResize，然后鼠标放开之后再把ResizeMode设置回CanResize，就可以啦！
 
 <br/>
 
 <br/>
 
-**Code (MainWindow.cs)**：
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System.Windows;
@@ -565,40 +560,40 @@ namespace ResizeTransparentWindow
 
 <br/>
 
-## Change the size of the window proportionally
+## 等比例的改变窗口的大小
 
-Can we zoom in / out the window proportionally when dragging the mouse to resize the window?
+那我们可以在拖动鼠标调整窗口大小时，等比例的放大/缩小窗口吗？
 
-For example, can you always keep the window ratio to 4:3?
+比如，可以一直让窗口的比例为4比3吗？
 
-Of course it can!
+当然可以哒！
 
-Here reference [a7066163](https://my.csdn.net/a7066163)、[Hauk](https://my.csdn.net/haukwong) article .
+这里参考了[a7066163](https://my.csdn.net/a7066163)、[Hauk](https://my.csdn.net/haukwong)的方法。
 
-Using this method, you can not only scale the window proportionally, but also avoid flicker!
+使用这种方法，不仅可以按照比例缩放窗口，还可以避免闪烁的问题！
 
 ```
-Link：https://bbs.csdn.net/topics/390257164
+原文地址：https://bbs.csdn.net/topics/390257164
 ```
 
 <br/>
 
-> **Thinking**:
+> **思路**：
 >
 > ```
-> [First, Hauk gave his thoughts]:
-> "Show window contents when dragging" When unchecked: SizeChanged event is triggered only once when dragging
-> "Show window contents when dragging" When checked: One drag only triggers N SizeChanged events(n=newsize-oldsize)
+> 【首先Hauk给出了自己的思路】：
+> 拖拉时显示窗口内容  不勾选时：一次拖动只触发一次SizeChanged事件
+> 拖拉时显示窗口内容  勾选时：一次拖动只触发 N 次SizeChanged事件(n=newsize-oldsize)
 > 
-> The trigger is too frequent so the interface update is a bit wrong.
-> You can use the timer to delay the update until the user drags it.           
+> 触发太频繁所以界面更新有点不对劲。
+> 可以使用timer来延迟更新,等用户拖好了来。            
 > ```
 >
 > ```
-> [Then a7066163 made changes based on Hauk's idea]:
-> Although in the case of slow mouse release, the window will return to its original size, so I only deal with the mouse release event.
-> However, it seems that the mouse event with its own border does not belong to the window event. In the end, I directly captured the WM_EXITSIZEMOVE message and reloaded the window message processing function.
-> Through the double guarantee of timer and WM_EXITSIZEMOVE message processing, the effect of real-time constant window proportion can be achieved.
+> 【然后a7066163在Hauk想法的基础上做了更改】：
+> 虽然在在鼠标释放的慢的情况下，窗口会退回原来的大小，所以我只在处理鼠标释放的事件就行了。
+> 不过貌似自带边框的鼠标事件不属于窗口事件，最后我直接捕获WM_EXITSIZEMOVE消息，重载了窗口消息处理函数。
+> 通过定时器和WM_EXITSIZEMOVE消息处理的双重保证下，大致能实现窗口比例实时恒定的效果。
 > ```
 
 <br/>
@@ -611,7 +606,7 @@ Link：https://bbs.csdn.net/topics/390257164
 
 <br/>
 
-**Code (MainWindow.cs)**：
+**代码 (MainWindow.cs)**：
 
 ```c#
 using System;
@@ -705,29 +700,29 @@ namespace ResizeTransparentWindow
 
 <br/>
 
-## Proportionally change the size of controls in the window
+## 等比例的改变窗口中控件的大小
 
-So when we change the window size, can we change the size of the controls in the window proportionally?
+那我们可以在更改窗口大小时，等比例的更改窗口中控件的大小吗？
 
-Of course!
+当然可以啦！
 
-Here we use the Viewbox control to achieve this function!
+这里我们用Viewbox控件，就可以实现这个功能啦！
 
 <br/>
 
-**Step 1**: We just need to put all the controls into the Viewbox control.
+**第1步**：我们只需要把所有的控件都放进Viewbox控件中。
 
 ![](Image/21.png)
 
 <br/>
 
-**Step 2**: Then, set the Stretch property of the Viewbox to UniformToFill
+**第2步**：然后，设置Viewbox的Stretch属性为UniformToFill
 
 ![](Image/22.png)
 
 <br/>
 
-**Step 3**: Now, when we zoom the window, the content in the window will automatically be scaled automatically!
+**第3步**：现在，我们缩放窗口时，窗口中的内容也会自动等比例进行缩放啦！
 
 ![](Image/23.gif)
 
@@ -735,7 +730,7 @@ Here we use the Viewbox control to achieve this function!
 
 <br/>
 
-**Code (MainWindow.xaml)**：
+**代码 (MainWindow.xaml)**：
 
 ```xaml
 <Window x:Class="ResizeTransparentWindow.MainWindow"
@@ -796,7 +791,7 @@ Here we use the Viewbox control to achieve this function!
 
 <br/>
 
-## Complete code
+## 完整代码
 
 **MainWindow.xaml**：
 
